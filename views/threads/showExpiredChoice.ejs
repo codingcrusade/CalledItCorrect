@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate')%>
+<div class="mb-3 col-6 offset-3">
+    <h1 class="text-center">
+        <%=thread.subject%>
+    </h1>
+</div>
+
+<div class="mb-3 col-8 offset-2 justify-content-between">
+    <h6 class="text-center  text-danger">
+        <b>--Please select which guess was most correct--</b>
+    </h6>
+</div>
+
+<div class="mb-3 col-8 offset-2">
+    <div class="dropdown-divider"></div>
+    <div class="row d-grid gap-2">
+        <%var claimIndex = 0;%>
+        <form action="/threads/<%=thread._id%>/correctGuess/" method="POST">
+            <% for(var i=0; i<thread.claims.length; i++) { claimIndex = i;%>
+                        <input type="radio" class="btn-check" name="options" id="option<%=i%>" value="<%=thread.claims[i]._id%>" autocomplete="off">
+                        <label class="btn btn-outline-secondary w-100" for="option<%=i%>"><%=thread.claims[i].text%></label>
+                <div class="dropdown-divider"></div>
+            <% } %>
+            <input type="radio" class="btn-check" name="options" id="option<%=thread.claims.length%>" value="allWrong" autocomplete="off">
+            <label class="btn btn-outline-danger w-100" for="option<%=thread.claims.length%>"><b>All of these are wrong!</b></label>
+            <div class="dropdown-divider"></div>
+            <button class="btn btn-success center w-50 offset-3" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="mb-3 col-8 offset-2 justify-content-between mt-5">
+    <div class="text-center">
+        This thread has ended.
+    </div>
+</div>
